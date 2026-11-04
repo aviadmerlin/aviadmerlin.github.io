@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sliding Doors · Aviad Merlin</title>
+<meta name="description" content="Sliding Doors: a counterfactual match-intelligence tool built solo for the Microsoft x Premier League hackathon. Case study by Aviad Merlin.">
+<link rel="canonical" href="https://aviadmerlin.github.io/projects/sliding-doors.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aviad Merlin">
+<meta property="og:title" content="Sliding Doors · Aviad Merlin">
+<meta property="og:description" content="A counterfactual match-intelligence tool: re-simulate a match hundreds of times with one moment changed, and measure how much it actually mattered.">
+<meta property="og:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+<meta property="og:url" content="https://aviadmerlin.github.io/projects/sliding-doors.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" href="../assets/favicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+<link rel="stylesheet" href="../css/style.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("am-theme");
+    if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="../index.html" class="brand">Aviad Merlin</a>
+    <div class="header-right">
+      <nav aria-label="Primary">
+        <ul class="nav-list" id="nav-list" data-open="false">
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#toolkit">Toolkit</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-controls">
+        <button type="button" class="icon-btn theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="case-hero">
+    <div class="wrap wrap--text">
+      <p class="eyebrow">Case study</p>
+      <h1>Sliding Doors</h1>
+      <p class="lede">A counterfactual match-intelligence tool: re-simulate a football match hundreds of times with one moment changed, a goal, a red card, and measure how much that moment actually shifted the win probability.</p>
+      <span class="status-pill"><span class="dot"></span>Microsoft x Premier League hackathon &middot; October 2026 &middot; solo entry</span>
+      <div class="case-meta">
+        <span class="tag">Python</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">Monte Carlo</span>
+        <span class="tag">Microsoft Agent Framework</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Problem</h2>
+      <p>Every fan has had the argument "if that goal hadn't gone in, we'd have won," and it always stays an opinion. The Microsoft x Premier League "Inside the Game" hackathon asked for a tool that ingests match events, interprets them into stats, explains what a moment meant, and renders that for a fan, built on Microsoft's AI stack.</p>
+      <p>I entered solo, which meant learning Microsoft Agent Framework and Azure AI Foundry from scratch under a hackathon deadline, on top of building the simulation itself.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>What I built</h2>
+      <ul>
+        <li>A synthetic 20-club league simulator, 5 seasons, fictional clubs and players, that generates matches minute by minute (shots, goals, red cards, day form, pressure spells)</li>
+        <li>Trait estimation that recovers each club's hidden attack/defense/etc. from shot-level data using weighted Poisson regression</li>
+        <li>A vectorized Monte Carlo win-probability engine: replays the rest of a match thousands of times from any point in the game</li>
+        <li>A counterfactual engine: change one real event, a goal, a missed shot, a red card, and re-simulate forward for a fair before/after</li>
+        <li>A two-agent AI layer on Microsoft Agent Framework: an Analyst that calls tools against the simulation, and a Narrator that writes the fan-facing answer using only numbers the Analyst's tools actually returned (English or Hebrew, fan or analyst tone)</li>
+        <li>An interactive Streamlit UI: scoreboard, win-probability chart with turning points marked, a "What if...?" panel, and a match recap</li>
+      </ul>
+      <p>All match data is 100% synthetic: a fictional league, fictional players, no real clubs, players or logos anywhere in the code, data or UI.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Result / status</h2>
+      <p>Deployed and working on Azure Container Apps. These are the real validated numbers from the test suite, not estimates written for this page:</p>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="num">0.95&ndash;0.98</div>
+          <div class="label">Correlation (r) recovering each club's true attack/defense from data</div>
+        </div>
+        <div class="stat">
+          <div class="num">0.0155</div>
+          <div class="label">Out-of-sample calibration error of the win-probability model</div>
+        </div>
+        <div class="stat">
+          <div class="num">0.795</div>
+          <div class="label">Rank correlation: power rating vs. real final standings</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap">
+      <h2>Screenshots</h2>
+      <div class="figure-grid">
+        <figure>
+          <img src="../assets/images/sliding-doors/app-ui.webp" alt="Sliding Doors live app showing a match score, club profiles and a timeline" width="1440" height="1024" loading="lazy" decoding="async">
+          <figcaption>The live app: match score, per-club profile cards, and the event timeline.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sliding-doors/win_probability.webp" alt="Win probability chart with turning points marked over the course of a match" width="1650" height="900" loading="lazy" decoding="async">
+          <figcaption>Win-probability curve for the most dramatic match of the season, with turning points marked.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sliding-doors/counterfactual_demo.webp" alt="Counterfactual demo chart comparing real and alternate match outcomes" width="2700" height="750" loading="lazy" decoding="async">
+          <figcaption>Three counterfactuals: cancel a goal, change a near-miss into a goal, undo a red card, each a fair forecast-vs-forecast comparison.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sliding-doors/trait_validation.webp" alt="Scatter plot of estimated versus true club traits" width="1950" height="1200" loading="lazy" decoding="async">
+          <figcaption>Estimated vs. true club traits: attack and defense are recovered almost exactly.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sliding-doors/calibration.webp" alt="Calibration chart of predicted versus actual win rates" width="975" height="975" loading="lazy" decoding="async">
+          <figcaption>Calibration, out-of-sample: predicted win probabilities line up closely with actual outcomes.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Stack</h2>
+      <p>Python, Streamlit, pandas, NumPy, statsmodels, Plotly, Microsoft Agent Framework (<code>agent-framework</code>, via <code>agent_framework_openai</code>), Azure OpenAI on Microsoft Foundry (<code>gpt-5-mini</code>), Azure Container Apps for deployment.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Links</h2>
+      <div class="links-row">
+        <a class="btn btn--primary" href="https://sliding-doors.happytree-e6502234.switzerlandnorth.azurecontainerapps.io/" target="_blank" rel="noopener">Live demo</a>
+        <a class="btn btn--ghost" href="https://github.com/aviadmerlin/sliding-doors" target="_blank" rel="noopener">Repo</a>
+        <a class="btn btn--ghost" href="../index.html#work">Back to work</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Aviad Merlin</span>
+    <a href="https://github.com/aviadmerlin/aviadmerlin.github.io" target="_blank" rel="noopener">Site source</a>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="../js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sparkio · Aviad Merlin</title>
+<meta name="description" content="Sparkio: a CRM that brings an event vendor's leads, quotes, events and clients into one system. Case study by Aviad Merlin.">
+<link rel="canonical" href="https://aviadmerlin.github.io/projects/sparkio.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aviad Merlin">
+<meta property="og:title" content="Sparkio · Aviad Merlin">
+<meta property="og:description" content="A CRM that brings an event vendor's leads, quotes, events and clients into one system.">
+<meta property="og:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+<meta property="og:url" content="https://aviadmerlin.github.io/projects/sparkio.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" href="../assets/favicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+<link rel="stylesheet" href="../css/style.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("am-theme");
+    if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="../index.html" class="brand">Aviad Merlin</a>
+    <div class="header-right">
+      <nav aria-label="Primary">
+        <ul class="nav-list" id="nav-list" data-open="false">
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#toolkit">Toolkit</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-controls">
+        <button type="button" class="icon-btn theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="case-hero">
+    <div class="wrap wrap--text">
+      <p class="eyebrow">Case study</p>
+      <h1>Sparkio</h1>
+      <p class="lede">A CRM that brings an event vendor's leads, quotes, events and clients into one system, instead of Excel, WhatsApp, notes and calendars that don't talk to each other.</p>
+      <span class="status-pill"><span class="dot"></span>Solo project &middot; source private, showcase repo public</span>
+      <div class="case-meta">
+        <span class="tag">Next.js</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Supabase / Postgres</span>
+        <span class="tag">Row-Level Security</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Problem</h2>
+      <p>I used to run <a class="inline-link" href="https://www.instagram.com/sorbococktails" target="_blank" rel="noopener">Sorbo Cocktails</a>, a mobile cocktail bar for events, and I saw this problem from the inside. Event vendors, catering, bar service, equipment rental, manage leads in WhatsApp, write quotes in Word or Excel, and keep the event calendar somewhere else entirely. None of it is connected, so the vendor has to hold the whole pipeline in their head.</p>
+      <p>Sparkio is what I built to fix that: one system that follows a lead from first contact all the way to a delivered event.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>What I built</h2>
+      <ul>
+        <li>Lead pipeline (Kanban) with sources: WhatsApp, Instagram, manual entry</li>
+        <li>Quote builder with PDF export and version history</li>
+        <li>Online digital signature collection, a client signs and the quote status updates to approved automatically</li>
+        <li>Event calendar and scheduling</li>
+        <li>Task management, shared between a dashboard view and per-event checklists</li>
+        <li>Equipment and inventory tracking per event, assigned quantities vs. returned quantities</li>
+        <li>Supplier directory and payment tracking per event</li>
+        <li>Analytics dashboard: revenue, conversion rate, lead funnel by status, lead sources, monthly trends</li>
+      </ul>
+      <p>The data model keeps quotes and signatures attached to a <strong>lead</strong>, not an event, since one lead can carry several quote versions before it's ever booked. That keeps the pre-sale pipeline separate from confirmed-event logistics. The whole system is multi-tenant by design: Postgres Row-Level Security enforces that each business only ever sees its own data, at the database layer, not just in the app code.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Result / status</h2>
+      <p>Sparkio is solo-built and fully working end to end, from lead intake to a signed, paid event. The source lives in a private repository and is available on request; this page and the <a class="inline-link" href="https://github.com/aviadmerlin/sparkio-showcase" target="_blank" rel="noopener">public showcase repo</a> hold the real screenshots and write-up. There's no production user base to report here, so what follows is about what the system actually does, not usage numbers.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap">
+      <h2>Screenshots</h2>
+      <div class="figure-grid">
+        <figure>
+          <video src="../assets/images/sparkio/lead-pipeline-demo.mp4" poster="../assets/images/sparkio/lead-pipeline-poster.webp" controls muted playsinline width="900" height="562"></video>
+          <figcaption>Moving a lead through the pipeline: drag-and-drop between stages, with the board updating live.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/01-analytics-dashboard.webp" alt="Sparkio analytics dashboard with revenue, conversion rate and lead funnel" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>Analytics dashboard: revenue, conversion rate, lead funnel by status and lead sources for the selected period.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/02-leads-pipeline-kanban.webp" alt="Lead pipeline Kanban board" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>The lead pipeline as a Kanban board, grouped by stage.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/03-quote-builder.webp" alt="Quote builder screen" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>Building a quote: line items, pricing and PDF export.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/04-quote-signed.webp" alt="A signed and approved quote" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>The same quote after the client signs: status moves to approved automatically.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/05-event-equipment.webp" alt="Event equipment tab showing assigned and returned quantities" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>Per-event equipment tab: quantities assigned vs. returned.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/sparkio/06-event-tasks.webp" alt="Event checklist tab" width="1440" height="900" loading="lazy" decoding="async">
+          <figcaption>Per-event task checklist, shared with the main dashboard view.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Stack</h2>
+      <p>Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, Supabase (Postgres, Auth, Storage, Row-Level Security), <code>@react-pdf/renderer</code> for quote PDFs, Jest and React Testing Library.</p>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="wrap wrap--text">
+      <h2>Links</h2>
+      <div class="links-row">
+        <a class="btn btn--primary" href="https://github.com/aviadmerlin/sparkio-showcase" target="_blank" rel="noopener">Showcase repo</a>
+        <a class="btn btn--ghost" href="../index.html#work">Back to work</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Aviad Merlin</span>
+    <a href="https://github.com/aviadmerlin/aviadmerlin.github.io" target="_blank" rel="noopener">Site source</a>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="../js/main.js" defer></script>
+</body>
+</html>

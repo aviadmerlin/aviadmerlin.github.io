@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Aviad Merlin</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("am-theme");
+    if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="brand">Aviad Merlin</a>
+  </div>
+</header>
+<main id="main">
+  <section class="wrap">
+    <div class="not-found">
+      <p class="eyebrow">404</p>
+      <h1>That page doesn't exist.</h1>
+      <p class="lede">Let's get you back to somewhere real.</p>
+      <div class="btn-row" style="margin-top: 1.5rem;">
+        <a href="/" class="btn btn--primary">Back home</a>
+        <a href="/#work" class="btn btn--ghost">See the work</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Aviad Merlin</span>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

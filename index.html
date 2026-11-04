@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aviad Merlin · Data Analyst / Data Operations / PMO</title>
+<meta name="description" content="Portfolio of Aviad Merlin, an Industrial Engineering & Management student who builds systems that make messy operations organized and measurable. Open to Data Analyst, Data Operations and PMO student roles.">
+<link rel="canonical" href="https://aviadmerlin.github.io/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aviad Merlin">
+<meta property="og:title" content="Aviad Merlin · Data Analyst / Data Operations / PMO">
+<meta property="og:description" content="I've run operations. Now I build the systems that make them measurable.">
+<meta property="og:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+<meta property="og:url" content="https://aviadmerlin.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aviad Merlin · Data Analyst / Data Operations / PMO">
+<meta name="twitter:description" content="I've run operations. Now I build the systems that make them measurable.">
+<meta name="twitter:image" content="https://aviadmerlin.github.io/assets/og-image.png">
+
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+
+<link rel="stylesheet" href="css/style.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("am-theme");
+    if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="brand">Aviad Merlin</a>
+    <div class="header-right">
+      <nav aria-label="Primary">
+        <ul class="nav-list" id="nav-list" data-open="false">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#toolkit">Toolkit</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-controls">
+        <button type="button" class="icon-btn theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Aviad Merlin</p>
+          <h1>I've run operations. Now I build the systems that make them measurable.</h1>
+          <p class="lede">Open to Data Analyst, Data Operations and PMO student roles.</p>
+          <div class="btn-row">
+            <a href="#work" class="btn btn--primary">See the work</a>
+            <a href="assets/AviadMerlin-Resume.pdf" class="btn btn--ghost" target="_blank" rel="noopener">CV</a>
+            <a href="https://www.linkedin.com/in/aviad-merlin-b85b3b39b" class="btn btn--ghost" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="assets/images/profile-placeholder.webp" alt="" width="136" height="136" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Selected work</h2>
+        <p>Three systems, told through the process and data behind them, not just the code.</p>
+      </div>
+      <div class="project-grid">
+
+        <a class="project-card" href="projects/sparkio.html">
+          <div class="project-card__media">
+            <img src="assets/images/sparkio/01-analytics-dashboard.webp" alt="Sparkio analytics dashboard showing revenue, conversion rate and lead sources" width="1440" height="900" loading="lazy" decoding="async">
+          </div>
+          <div class="project-card__body">
+            <h3>Sparkio</h3>
+            <p>Event vendors run on Excel, WhatsApp and sticky notes. I mapped the whole pipeline, leads to quotes to events, and built one system for it.</p>
+            <div class="tag-row">
+              <span class="tag">Next.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Postgres + RLS</span>
+            </div>
+            <span class="card-link">Read case study →</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="projects/sliding-doors.html">
+          <div class="project-card__media">
+            <img src="assets/images/sliding-doors/app-ui.webp" alt="Sliding Doors app showing a match score and win-probability panels" width="1440" height="1000" loading="lazy" decoding="async">
+          </div>
+          <div class="project-card__body">
+            <h3>Sliding Doors</h3>
+            <p>A hackathon entry that re-simulates a football match hundreds of times to measure what one moment, a goal, a red card, was actually worth.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Monte Carlo</span>
+              <span class="tag">Azure AI Foundry</span>
+            </div>
+            <span class="card-link">Read case study →</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="projects/tennisvoicescore.html">
+          <div class="project-card__media">
+            <img src="assets/images/tennisvoicescore/placeholder-cover.webp" alt="TennisVoiceScore placeholder cover" width="1280" height="800" loading="lazy" decoding="async">
+          </div>
+          <div class="project-card__body">
+            <h3>TennisVoiceScore</h3>
+            <p>Keeping score mid-match means stopping to tap a phone. I built a hands-free, voice-controlled scorer instead.</p>
+            <div class="tag-row">
+              <span class="tag">Swift</span>
+              <span class="tag">SwiftUI</span>
+              <span class="tag">Speech framework</span>
+            </div>
+            <span class="card-link">Read case study →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap wrap--text">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+      <div class="about-body">
+        <p>I'm a 3rd-year Industrial Engineering & Management student at Ruppin Academic Center. Before any of this I ran <a class="inline-link" href="https://www.instagram.com/sorbococktails" target="_blank" rel="noopener">Sorbo Cocktails</a>, a mobile cocktail bar for events.</p>
+        <p>That business is where most of my project ideas actually come from. I know what it feels like to track a lead in a WhatsApp thread and chase a quote by phone, because I did it myself. That's the angle behind Sparkio, and behind how I look at any process: as something you can map, simplify and measure.</p>
+        <p>I'm not applying as a developer. I use code, often with Claude Code, as a tool to model how an operation actually runs and make its data visible to the people running it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap wrap--text">
+      <div class="section-head">
+        <h2>Education & Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <time>In progress</time>
+          <div>
+            <h3>B.A. Industrial Engineering &amp; Management</h3>
+            <p>Ruppin Academic Center &middot; 3rd year</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <time>Founder &amp; Operator</time>
+          <div>
+            <h3>Sorbo Cocktails</h3>
+            <p>Ran a mobile cocktail bar for events end to end: leads, quotes, logistics and service on the day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="toolkit">
+    <div class="wrap wrap--text">
+      <div class="section-head">
+        <h2>Toolkit</h2>
+      </div>
+      <div class="toolkit-grid">
+        <span class="toolkit-chip">SQL</span>
+        <span class="toolkit-chip">Python</span>
+        <span class="toolkit-chip">Excel / Google Sheets</span>
+        <span class="toolkit-chip">Git &amp; GitHub</span>
+        <span class="toolkit-chip">Figma</span>
+        <span class="toolkit-chip">Claude Code</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap wrap--text">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Open to Data Analyst, Data Operations and PMO student roles.</p>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:aviadmerlin@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          aviadmerlin@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/aviad-merlin-b85b3b39b" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/aviad-merlin-b85b3b39b
+        </a>
+        <a href="https://github.com/aviadmerlin" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          github.com/aviadmerlin
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Aviad Merlin</span>
+    <a href="https://github.com/aviadmerlin/aviadmerlin.github.io" target="_blank" rel="noopener">Site source</a>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
