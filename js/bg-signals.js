@@ -7,13 +7,14 @@
 
   var reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var GRID = 32;
-  var SPEED = 0.09;
-  var MAX_SIGNALS = 3;
-  var TRAIL_CELLS = 6;
-  var TEXT_PAD = 16;
-  var SPAWN_MIN = 1400;
-  var SPAWN_RANGE = 1800;
+  var GRID = 30;
+  var SPEED = 0.1;
+  var MAX_SIGNALS = 5;
+  var TRAIL_CELLS = 9;
+  var TEXT_PAD = 14;
+  var SPAWN_MIN = 900;
+  var SPAWN_RANGE = 1200;
+  var MAX_STEPS = TRAIL_CELLS * 20;
 
   var width = 0, height = 0, dpr = 1, offsetX = 0;
   var inkColor = "237,239,242";
@@ -70,28 +71,52 @@
     var rows = Math.floor(height / GRID);
     var j = 1 + Math.floor(Math.random() * Math.max(1, rows - 2));
     if (blocked(gx(0), gy(j))) return;
-    signals.push({ i: -1, j: j, di: 1, dj: 0, run: 0, t: 0, n: 0, end: 0 });
+    signals.push({ i: -1, j: j, di: 1, dj: 0, run: 0, t: 0, n: 0, end: 0, trail: [[-1, j]] });
   }
 
+  // Advance one grid cell. The signal always tries to keep moving: first its
+  // preferred direction (straight, or a turn it was about to make), then a
+  // couple of fallbacks, and only fades out if every nearby cell is blocked
+  // by a text block. It never has to die just because one path forward is
+  // covered by a word.
   function stepSignal(s) {
     s.i += s.di;
     s.j += s.dj;
     s.n++;
+    s.trail.push([s.i, s.j]);
+    if (s.trail.length > TRAIL_CELLS + 2) s.trail.shift();
     lit[s.i + "," + s.j] = 1;
 
-    if (s.dj !== 0) {
+    var turn = null;
+    if (s.dj === 0) {
+      if (Math.random() < 0.16) {
+        var dir = Math.random() < 0.5 ? -1 : 1;
+        turn = [0, dir];
+      }
+    } else {
       s.run--;
-      if (s.run <= 0) { s.di = 1; s.dj = 0; }
-    } else if (Math.random() < 0.12) {
-      var dir = Math.random() < 0.5 ? -1 : 1;
-      if (!blocked(gx(s.i), gy(s.j + dir))) {
-        s.di = 0;
-        s.dj = dir;
-        s.run = 1 + Math.floor(Math.random() * 3);
+      if (s.run <= 0) turn = [1, 0];
+    }
+
+    var ways;
+    if (turn) {
+      ways = [turn, [s.di, s.dj], [1, 0], [0, 1], [0, -1]];
+    } else if (s.dj !== 0) {
+      ways = [[s.di, s.dj], [1, 0], [0, -s.dj]];
+    } else {
+      ways = [[s.di, s.dj], [0, 1], [0, -1]];
+    }
+
+    for (var q = 0; q < ways.length; q++) {
+      var w = ways[q];
+      if (!blocked(gx(s.i + w[0]), gy(s.j + w[1]))) {
+        if (w[1] !== 0 && s.dj === 0) s.run = 2 + Math.floor(Math.random() * 2);
+        s.di = w[0];
+        s.dj = w[1];
         return;
       }
     }
-    if (blocked(gx(s.i + s.di), gy(s.j + s.dj))) s.end = 1;
+    s.end = 1;
   }
 
   function drawGrid() {
@@ -110,10 +135,10 @@
   function drawSignals(now, dt) {
     var key;
     for (key in lit) {
-      var v = (lit[key] -= dt / 1400);
+      var v = (lit[key] -= dt / 1800);
       if (v <= 0) { delete lit[key]; continue; }
       var parts = key.split(",");
-      var size = 1.3 + 1.3 * v;
+      var size = 1.3 + 1.4 * v;
       ctx.fillStyle = "rgba(" + accentColor + "," + (0.5 * v).toFixed(3) + ")";
       ctx.fillRect(gx(+parts[0]) - size / 2, gy(+parts[1]) - size / 2, size, size);
     }
@@ -123,11 +148,14 @@
       nextSpawn = now + SPAWN_MIN + Math.random() * SPAWN_RANGE;
     }
 
+    ctx.lineCap = "round";
+    ctx.lineWidth = 1.6;
+
     for (var n = signals.length - 1; n >= 0; n--) {
       var s = signals[n];
       var fade = 1;
       if (s.end) {
-        s.end -= dt / 500;
+        s.end -= dt / 550;
         fade = s.end;
         if (s.end <= 0) { signals.splice(n, 1); continue; }
       } else {
@@ -136,16 +164,36 @@
           s.t -= 1;
           stepSignal(s);
         }
+        if (s.end) s.t = 0;
       }
+
       var hx = gx(s.i + s.di * s.t);
       var hy = gy(s.j + s.dj * s.t);
-      if (hx > width + GRID || hy < -GRID || hy > height + GRID || s.n > TRAIL_CELLS * 14) {
+      if (hx > width + GRID || hy < -GRID || hy > height + GRID || s.n > MAX_STEPS) {
         signals.splice(n, 1);
         continue;
       }
-      ctx.fillStyle = "rgba(" + accentColor + "," + (0.85 * fade).toFixed(3) + ")";
+
+      var pts = s.trail.map(function (p) { return [gx(p[0]), gy(p[1])]; });
+      pts.push([hx, hy]);
+      var gone = 0, maxLen = TRAIL_CELLS * GRID;
+      for (var k = pts.length - 1; k > 0 && gone < maxLen; k--) {
+        var a = pts[k], b = pts[k - 1];
+        var segLen = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+        if (!segLen) continue;
+        var f = Math.min(1, (maxLen - gone) / segLen);
+        var ex = a[0] + (b[0] - a[0]) * f, ey = a[1] + (b[1] - a[1]) * f;
+        ctx.strokeStyle = "rgba(" + accentColor + "," + (0.55 * fade * (1 - gone / maxLen)).toFixed(3) + ")";
+        ctx.beginPath();
+        ctx.moveTo(a[0], a[1]);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+        gone += segLen;
+      }
+
+      ctx.fillStyle = "rgba(" + accentColor + "," + (0.9 * fade).toFixed(3) + ")";
       ctx.beginPath();
-      ctx.arc(hx, hy, 2, 0, Math.PI * 2);
+      ctx.arc(hx, hy, 2.4, 0, Math.PI * 2);
       ctx.fill();
     }
   }
