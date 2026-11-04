@@ -456,27 +456,49 @@ main, .site-footer { position: relative; z-index: 1; }
 .case-section ul { list-style: disc; padding-left: 1.2em; }
 .case-section ul li + li { margin-top: 0.4em; }
 
+/* First shot runs full width as the hero of the set; the rest sit two-up so
+   each one stays large enough to actually read, not a thumbnail wall. */
 .figure-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-3);
+  margin-top: var(--space-4);
 }
-.figure-grid.figure-grid--single { grid-template-columns: 1fr; max-width: 46rem; }
+.figure-grid > figure:first-child { grid-column: 1 / -1; }
+.figure-grid.figure-grid--single { grid-template-columns: 1fr; max-width: 50rem; }
+.figure-grid.figure-grid--single > figure:first-child { grid-column: auto; }
+
+@media (max-width: 760px) {
+  .figure-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+
 figure {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
+  min-width: 0;
 }
 figure img, figure video {
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg-elevated-2);
+  box-shadow: var(--shadow);
 }
 figcaption {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--text-muted);
+  max-width: 62ch;
+}
+figcaption b {
+  color: var(--text);
+  font-weight: 650;
+}
+figcaption > b:first-child {
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
 }
 
 .stat-grid {
