@@ -51,9 +51,11 @@ ul[class], ol[class] { list-style: none; padding: 0; }
 }
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+  --font-display: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
     "Liberation Mono", monospace;
   --max-text: 42rem;
   --max-wide: 68rem;
@@ -79,6 +81,7 @@ body {
 }
 
 h1, h2, h3, h4 {
+  font-family: var(--font-display);
   line-height: 1.15;
   font-weight: 650;
   letter-spacing: -0.01em;
@@ -141,56 +144,24 @@ section + section { border-top: 1px solid var(--border); }
   white-space: nowrap;
 }
 
-/* ---------- Header / nav ---------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: saturate(140%) blur(10px);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
-  border-bottom: 1px solid var(--border);
+/* ---------- Background canvas ---------- */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
-.site-header .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding-block: 0.9rem;
-}
-.brand {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-}
-.brand span { color: var(--accent); }
+main, .site-footer { position: relative; z-index: 1; }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.nav-list {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-.nav-list a {
-  font-size: 0.93rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-.nav-list a:hover { color: var(--text); }
-
-.nav-controls { display: flex; align-items: center; gap: 0.6rem; }
-
+/* ---------- Floating theme toggle (no nav bar) ---------- */
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
@@ -201,35 +172,17 @@ section + section { border-top: 1px solid var(--border); }
 .icon-btn:hover { border-color: var(--accent); }
 .icon-btn svg { width: 18px; height: 18px; }
 
+.theme-toggle--floating {
+  position: fixed;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+
 .theme-toggle .sun { display: none; }
 [data-theme="dark"] .theme-toggle .sun { display: block; }
 [data-theme="dark"] .theme-toggle .moon { display: none; }
-
-.nav-toggle { display: none; }
-
-@media (max-width: 720px) {
-  .nav-list {
-    position: fixed;
-    inset: 64px 0 auto 0;
-    flex-direction: column;
-    align-items: flex-start;
-    background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border);
-    padding: var(--space-2) var(--space-3) var(--space-3);
-    gap: var(--space-2);
-    transform: translateY(-8px);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.18s ease, opacity 0.18s ease;
-  }
-  .nav-list[data-open="true"] {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .nav-list a { font-size: 1rem; }
-  .nav-toggle { display: inline-flex; }
-}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -274,7 +227,21 @@ section + section { border-top: 1px solid var(--border); }
   text-transform: uppercase;
   color: var(--accent);
 }
-.hero h1 { margin-top: var(--space-2); max-width: 20ch; }
+.hero h1 {
+  margin-top: var(--space-1);
+  max-width: 14ch;
+  font-size: clamp(2.6rem, 1.6rem + 5vw, 4.6rem);
+  letter-spacing: -0.03em;
+}
+.hero-tagline {
+  margin-top: var(--space-2);
+  max-width: 32ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 1rem + 1.1vw, 1.6rem);
+  line-height: 1.3;
+  color: var(--text);
+}
 .hero .lede {
   margin-top: var(--space-2);
   max-width: 48ch;
