@@ -257,8 +257,8 @@ main, .site-footer { position: relative; z-index: 1; }
   align-items: center;
 }
 .hero-photo {
-  width: 136px;
-  height: 136px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid var(--bg-elevated);
@@ -271,7 +271,7 @@ main, .site-footer { position: relative; z-index: 1; }
 
 @media (max-width: 720px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-photo { order: -1; width: 88px; height: 88px; }
+  .hero-photo { order: -1; width: 128px; height: 128px; }
 }
 
 /* ---------- Section headings ---------- */

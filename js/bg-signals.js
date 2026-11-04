@@ -8,13 +8,14 @@
   var reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var GRID = 30;
-  var SPEED = 0.1;
+  var SPEED = 0.2;
   var MAX_SIGNALS = 5;
   var TRAIL_CELLS = 9;
   var TEXT_PAD = 14;
   var SPAWN_MIN = 900;
   var SPAWN_RANGE = 1200;
   var MAX_STEPS = TRAIL_CELLS * 20;
+  var POINTER_RADIUS = 130;
 
   var width = 0, height = 0, dpr = 1, offsetX = 0;
   var inkColor = "237,239,242";
@@ -26,6 +27,8 @@
   var raf = 0;
   var prevTime = 0;
   var nextSpawn = 0;
+  var finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var mouseX = -1e4, mouseY = -1e4, pointerX = -1e4, pointerY = -1e4;
 
   function readColors() {
     var light = document.documentElement.getAttribute("data-theme") === "light";
@@ -120,15 +123,33 @@
   }
 
   function drawGrid() {
+    pointerX += (mouseX - pointerX) * 0.18;
+    pointerY += (mouseY - pointerY) * 0.18;
+
     var cols = Math.ceil(width / GRID) + 1;
     var rows = Math.ceil(height / GRID) + 1;
-    ctx.fillStyle = "rgba(" + inkColor + ",0.12)";
+    ctx.fillStyle = "rgba(" + inkColor + ",0.18)";
+    var near = [];
     for (var j = 0; j < rows; j++) {
       var y = gy(j);
       for (var i = 0; i < cols; i++) {
         var x = gx(i);
-        ctx.fillRect(x - 0.6, y - 0.6, 1.2, 1.2);
+        if (finePointer) {
+          var dx = x - pointerX, dy = y - pointerY;
+          var distSq = dx * dx + dy * dy;
+          if (distSq < POINTER_RADIUS * POINTER_RADIUS) {
+            near.push([x, y, 1 - Math.sqrt(distSq) / POINTER_RADIUS]);
+            continue;
+          }
+        }
+        ctx.fillRect(x - 0.7, y - 0.7, 1.4, 1.4);
       }
+    }
+    for (var k = 0; k < near.length; k++) {
+      var d = near[k], w = d[2] * d[2];
+      var s = 1.4 + 2.4 * w;
+      ctx.fillStyle = "rgba(" + inkColor + "," + (0.18 + 0.42 * w).toFixed(3) + ")";
+      ctx.fillRect(d[0] - s / 2, d[1] - s / 2, s, s);
     }
   }
 
@@ -235,6 +256,17 @@
     function () { zonesDirty = true; },
     { passive: true }
   );
+
+  if (finePointer && !reduceMotion) {
+    window.addEventListener(
+      "pointermove",
+      function (e) { mouseX = e.clientX; mouseY = e.clientY; },
+      { passive: true }
+    );
+    document.addEventListener("pointerleave", function () {
+      mouseX = mouseY = -1e4;
+    });
+  }
 
   document.addEventListener("visibilitychange", function () {
     if (!document.hidden && !raf && !reduceMotion) raf = requestAnimationFrame(loop);
